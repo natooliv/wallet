@@ -9,7 +9,7 @@ export const deleteExpense = (id) => ({ type: 'DELETE_EXPENSE', id });
 
 export const editExpense = (id) => ({ type: 'EDIT_EXPENSE', id });
 
-export const fetchCoins = (currencies) => ({ type: 'ADD_CURRENCIES', currencies });
+export const fetchCoins = (currencies) => ({ type: 'ADD_CURRENCES', currencies });
 
 export const saveEditExpense = () => ({});
 
@@ -24,6 +24,6 @@ export const fetchApi = () => async (dispatch) => {
   const response = await fetch(API_URL);
   const data = await response.json();
   const currencies = Object.keys(data).filter((moedas) => moedas !== 'USDT');
-  // console.log(currencies);
+  console.log(currencies);
   dispatch((fetchCoins(currencies)));
 };

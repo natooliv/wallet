@@ -58,7 +58,7 @@ class Form extends Component {
     const { formInfo } = this.state;
     const { currencies } = this.props;
     const { value, description, currency } = formInfo;
-    console.log(currencies);
+
     return (
       <div className="form-container">
         <form>
@@ -152,6 +152,7 @@ class Form extends Component {
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
