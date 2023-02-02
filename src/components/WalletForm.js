@@ -58,11 +58,8 @@ class Form extends Component {
     const { formInfo } = this.state;
     const { currencies } = this.props;
     const { value, description, currency } = formInfo;
-<<<<<<< HEAD
     console.log(currencies);
-=======
 
->>>>>>> fe2877ff56796327e1958c56ce840b769dfe3cbd
     return (
       <div className="form-container">
         <form>
@@ -102,11 +99,7 @@ class Form extends Component {
               value={ currency }
             >
               {currencies.map((code, index) => (
-<<<<<<< HEAD
                 <option key={ index }>{code}</option>
-=======
-                <option data-testid={ code } key={ index }>{code}</option>
->>>>>>> fe2877ff56796327e1958c56ce840b769dfe3cbd
               ))}
             </select>
           </label>
