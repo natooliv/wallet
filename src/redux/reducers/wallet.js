@@ -16,6 +16,11 @@ function wallet(state = INITIAL_STATE, action) {
   case 'EDIT_EXPENSE':
     return {
       ...state, editExpenses: console.log('wallet') };
+  case 'EXPENCES':
+    return {
+      ...state, expenses: [...state.expenses, action.expenses],
+    };
+
   default:
     return state;
   }

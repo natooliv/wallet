@@ -1,64 +1,65 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApi } from '../redux/actions';
+import { fetchApi, responseApi, saveExpense } from '../redux/actions/index';
 
 class Form extends Component {
-  constructor() {
-    super();
+  state = {
+    id: 0,
+    value: '',
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
 
-    this.state = {
-      formInfo: {
-        id: 0,
-        value: '',
-        description: '',
-        currency: 'USD',
-        method: 'Dinheiro',
-        tag: 'Alimentação',
-        exchangeRates: {},
-      },
-
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+  };
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchApi());
   }
 
-  handleChange({ target }) {
+  handleChange = ({ target }) => {
     const { name, value } = target;
-    const { formInfo } = this.state;
     this.setState({
-      formInfo: {
-        ...formInfo,
-        [name]: value,
-      },
+      [name]: value,
     });
-  }
+  };
 
-  handleClick() {
-    const { formInfo } = this.state;
-    const { id } = formInfo;
-
-    this.setState({
-      formInfo: {
-        ...formInfo,
-        id: id + 1,
-        value: 0,
-        description: '',
-      },
-    });
-  }
+  handleClick = async () => {
+    const { dispatch } = this.props;
+    this.setState((prev) => ({
+      id: prev.id + 1,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+    }));
+    const {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    } = this.state;
+    const exchangeRates = await responseApi();
+    const objeto = {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+    dispatch(saveExpense(objeto));
+  };
 
   render() {
-    const { formInfo } = this.state;
     const { currencies } = this.props;
-    const { value, description, currency } = formInfo;
-    console.log(currencies);
+    const { value, description, currency, method, tag } = this.state;
 
     return (
       <div className="form-container">
@@ -111,6 +112,7 @@ class Form extends Component {
               name="method"
               data-testid="method-input"
               onChange={ this.handleChange }
+              value={ method }
             >
               <option>Dinheiro</option>
               <option>Cartão de crédito</option>
@@ -125,6 +127,7 @@ class Form extends Component {
               name="tag"
               data-testid="tag-input"
               onChange={ this.handleChange }
+              value={ tag }
             >
               <option>Alimentação</option>
               <option>Lazer</option>
@@ -159,6 +162,7 @@ Form.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Form);
