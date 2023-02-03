@@ -79,6 +79,7 @@ function mapStateToProps(state) {
 
 Table.propTypes = {
   expenses: Proptypes.arrayOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 
 };
 export default connect(mapStateToProps)(Table);
