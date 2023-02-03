@@ -26,7 +26,7 @@ class Header extends Component {
         <span
           data-testid="total-field"
         >
-          {this.total() ? this.total().toFixed(2) : total}
+          {this.total() ? this.total().toFixed(2) : total.toFixed(2)}
         </span>
         <p data-testid="header-currency-field">BRL</p>
       </header>

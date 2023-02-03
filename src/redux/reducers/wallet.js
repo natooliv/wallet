@@ -15,7 +15,15 @@ function wallet(state = INITIAL_STATE, action) {
       ...state, expenses: state.expenses.filter((expense) => expense.id !== action.id) };
   case 'EDIT_EXPENSE':
     return {
-      ...state, editExpenses: console.log('wallet') };
+      ...state,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === action.payload.id) {
+          Object.assign(expense, action.payload);
+          return expense;
+        }
+        return expense;
+      }),
+    };
   case 'EXPENCES':
     return {
       ...state, expenses: [...state.expenses, action.expenses],

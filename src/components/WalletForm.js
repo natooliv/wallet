@@ -140,14 +140,28 @@ class Form extends Component {
           {/* esse botão deve: salvar os valores na aplicação, atualiza
           a soma, salvar a cotação do cambio,
           após salvar o total no header deve ser somado */}
-          <button
-            type="button"
-            onClick={ this.handleClick }
-            className="form-btn"
-          >
-            Adicionar despesa
-          </button>
+          {
+          //  // edit
+          //     ? (
+          //       <button
+          //         className="button is-primary is-small"
+          //         type="button"
+          //         onClick={ this.handleClick }
+          //       >
+          //         Editar despesa
 
+            //       </button>
+            //     )
+            //     : (
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              className="form-btn"
+            >
+              Adicionar despesa
+            </button>
+            // )
+          }
         </form>
       </div>
     );
