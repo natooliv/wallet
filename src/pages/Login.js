@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import { user } from '../redux/actions/index';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-      isDisable: true,
-    };
-  }
+  state = {
+    email: '',
+    password: '',
+    isDisable: true,
+  };
 
   handleChange = ({ target }) => {
     const { name, value } = target;

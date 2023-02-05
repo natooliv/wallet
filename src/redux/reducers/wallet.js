@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'ADD_EXPENSE':
-    return { ...state, expenses: [...state.expenses, action.payload] };
+    return { ...state, expenses: [...state.expenses, { ...action.payload }] };
   case 'ADD_CURRENCES':
     return { ...state, currencies: action.currencies };
   case 'DELETE_EXPENSE':

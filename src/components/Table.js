@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { deleteExpense, editExpense } from '../redux/actions';
 
 class Table extends Component {
   render() {
     const { expenses, dispatch } = this.props;
+    console.log(expenses);
     return (
       <div>
         <table>
@@ -46,7 +47,7 @@ class Table extends Component {
                       className="button-real"
                       type="button"
                       data-testid="edit-btn"
-                      onClick={ editExpense }
+                      onClick={ () => dispatch(editExpense(expense.id)) }
                     >
                       Editar
                     </button>
@@ -70,16 +71,12 @@ class Table extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    expenses: state.wallet.expenses,
-
-  };
-}
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
 
 Table.propTypes = {
-  expenses: Proptypes.arrayOf.isRequired,
+  expenses: PropTypes.arrayOf,
   dispatch: PropTypes.func.isRequired,
-
-};
+}.isRequired;
 export default connect(mapStateToProps)(Table);

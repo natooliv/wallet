@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApi, responseApi, saveExpense } from '../redux/actions/index';
+import { fetchApi, responseApi, addExpense } from '../redux/actions/index';
 
 class Form extends Component {
   state = {
@@ -54,7 +54,7 @@ class Form extends Component {
       tag,
       exchangeRates,
     };
-    dispatch(saveExpense(objeto));
+    dispatch(addExpense(objeto));
   };
 
   render() {
@@ -141,14 +141,14 @@ class Form extends Component {
           a soma, salvar a cotação do cambio,
           após salvar o total no header deve ser somado */}
           {
-          //  // edit
-          //     ? (
-          //       <button
-          //         className="button is-primary is-small"
-          //         type="button"
-          //         onClick={ this.handleClick }
-          //       >
-          //         Editar despesa
+            //  // edit
+            //     ? (
+            //       <button
+            //         className="button is-primary is-small"
+            //         type="button"
+            //         onClick={ this.handleClick }
+            //       >
+            //         Editar despesa
 
             //       </button>
             //     )
