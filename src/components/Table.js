@@ -6,7 +6,6 @@ import { deleteExpense, editExpense } from '../redux/actions';
 class Table extends Component {
   render() {
     const { expenses, dispatch } = this.props;
-    console.log(expenses);
     return (
       <div>
         <table>

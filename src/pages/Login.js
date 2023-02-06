@@ -37,7 +37,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, isDisable } = this.state;
-    console.log(email);
+
     return (
       <div className="login">
         <form onSubmit={ this.handleClick }>
