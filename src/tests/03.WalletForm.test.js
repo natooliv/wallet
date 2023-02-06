@@ -8,24 +8,22 @@ import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import mockData from './helpers/mockData';
 
-// Id Header
-const emailTestId = 'email-field';
-const totalTestId = 'total-field';
-const currencyTestId = 'header-currency-field';
+const testIdEmail = 'email-field';
+const testIdTotal = 'total-field';
+const testIdCurrency = 'header-currency-field';
 
-// Id do Form de adicionar despesa
-const valueTestId = 'value-input';
-const descriptionTestId = 'description-input';
+const testIdValue = 'value-input';
+const testIdDescription = 'description-input';
 const currencySelectTestId = 'currency-input';
-const methodSelectTestId = 'method-input';
-const tagSelectTestId = 'tag-input';
-const btnSaveId = 'save-btn';
+const metodoTestId = 'method-input';
+const testIdTag = 'tag-input';
+const botaoId = 'save-btn';
 
-const emailValid = 'mail@mail.com';
+const emailValido = 'mail@mail.com';
 
 const initialStateAddOneExpenses = {
   user: {
-    email: emailValid,
+    email: emailValido,
   },
   wallet: {
     currencies: [],
@@ -47,9 +45,9 @@ const initialStateAddOneExpenses = {
   },
 };
 
-const initialStateAddTwoExpenses = {
+const initialState = {
   user: {
-    email: emailValid,
+    email: emailValido,
   },
   wallet: {
     currencies: [],
@@ -93,10 +91,6 @@ describe('1 - Wallet teste dos componentes', () => {
     });
   });
 
-  // afterEach(() => {
-  //   jest.restoreAllMocks();
-  // });
-
   it('1.1 - Teste se é renderizado Header', async () => {
     const store = createStore(
       rootReducer,
@@ -106,12 +100,12 @@ describe('1 - Wallet teste dos componentes', () => {
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    expect(screen.getByTestId(emailTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(emailTestId).innerHTML).toBe(emailValid);
-    expect(screen.getByTestId(totalTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(totalTestId).innerHTML).toBe('5.00');
-    expect(screen.getByTestId(currencyTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(currencyTestId).innerHTML).toBe('BRL');
+    expect(screen.getByTestId(testIdEmail)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdEmail).innerHTML).toBe(emailValid);
+    expect(screen.getByTestId(testIdTotal)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdTotal).innerHTML).toBe('5.00');
+    expect(screen.getByTestId(testIdCurrency)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdCurrency).innerHTML).toBe('BRL');
   });
 
   it('1.2 - Teste se é renderizado Form', async () => {
@@ -123,33 +117,33 @@ describe('1 - Wallet teste dos componentes', () => {
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    expect(screen.getByTestId(valueTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(descriptionTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(currencySelectTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(methodSelectTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(tagSelectTestId)).toBeInTheDocument();
-    expect(screen.getByTestId(btnSaveId)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdValue)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdDescription)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdCurrency)).toBeInTheDocument();
+    expect(screen.getByTestId(metodoTestId)).toBeInTheDocument();
+    expect(screen.getByTestId(testIdTag)).toBeInTheDocument();
+    expect(screen.getByTestId(botaoId)).toBeInTheDocument();
 
-    expect(screen.getByTestId(valueTestId).value).toBe('');
-    expect(screen.getByTestId(descriptionTestId).value).toBe('');
+    expect(screen.getByTestId(testIdValue).value).toBe('');
+    expect(screen.getByTestId(testIdDescription).value).toBe('');
 
-    const currencySelectList = [];
-    screen.getByTestId(currencySelectTestId).childNodes.forEach((option) => {
-      currencySelectList.push(option.innerHTML);
+    const listadeMoedas = [];
+    screen.getByTestId(listadeMoedas).childNodes.forEach((option) => {
+      listadeMoedas.push(option.innerHTML);
     });
-    expect(currencySelectList).toEqual(Object.keys(mockData).filter((key) => key !== 'USDT'));
+    expect(listadeMoedas).toEqual(Object.keys(mockData).filter((key) => key !== 'USDT'));
 
-    const categorySelectList = [];
-    screen.getByTestId(methodSelectTestId).childNodes.forEach((option) => {
-      categorySelectList.push(option.innerHTML);
+    const categoriaLista = [];
+    screen.getByTestId(metodoTestId).childNodes.forEach((option) => {
+      categoriaLista.push(option.innerHTML);
     });
-    expect(categorySelectList).toEqual(['Cartão de crédito', 'Cartão de débito', 'Dinheiro']);
+    expect(categoriaLista).toEqual(['Cartão de crédito', 'Cartão de débito', 'Dinheiro']);
 
-    const methodSelectList = [];
-    screen.getByTestId(tagSelectTestId).childNodes.forEach((option) => {
-      methodSelectList.push(option.innerHTML);
+    const metodoLista = [];
+    screen.getByTestId(testIdTag).childNodes.forEach((option) => {
+      metodoLista.push(option.innerHTML);
     });
-    expect(methodSelectList).toEqual(['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']);
+    expect(metodoLista).toEqual(['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']);
   });
 
   it('1.3 - Teste se os nomes do header formulário estão correto', async () => {
@@ -180,19 +174,19 @@ describe('1 - Wallet teste dos componentes', () => {
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    expect(screen.getByTestId(totalTestId).innerHTML).toBe('5.00');
+    expect(screen.getByTestId(testIdTotal).innerHTML).toBe('5.00');
   });
 
   it('1.5 - Teste se valor da despesa e somado correto', async () => {
     const store = createStore(
       rootReducer,
-      initialStateAddTwoExpenses,
+      initialState,
       applyMiddleware(thunk),
     );
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    expect(screen.getByTestId(totalTestId).innerHTML).toBe('15.00');
+    expect(screen.getByTestId(testIdTotal).innerHTML).toBe('15.00');
   });
 
   it('1.6 - Teste se ao preencher o formulário de despesa os valores são renderizados', async () => {
@@ -204,29 +198,29 @@ describe('1 - Wallet teste dos componentes', () => {
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    userEvent.type(screen.getByTestId(valueTestId), '1');
-    expect(screen.getByTestId(valueTestId).value).toBe('1');
-    userEvent.type(screen.getByTestId(descriptionTestId), 'açai');
-    expect(screen.getByTestId(descriptionTestId).value).toBe('açai');
+    userEvent.type(screen.getByTestId(testIdValue), '1');
+    expect(screen.getByTestId(testIdValue).value).toBe('1');
+    userEvent.type(screen.getByTestId(testIdDescription), 'açai');
+    expect(screen.getByTestId(testIdDescription).value).toBe('açai');
     userEvent.selectOptions(screen.getByTestId(currencySelectTestId), 'USD');
     expect(screen.getByTestId(currencySelectTestId).value).toBe('USD');
-    userEvent.selectOptions(screen.getByTestId(methodSelectTestId), 'Dinheiro');
-    expect(screen.getByTestId(methodSelectTestId).value).toBe('Dinheiro');
-    userEvent.selectOptions(screen.getByTestId(tagSelectTestId), 'Lazer');
-    expect(screen.getByTestId(tagSelectTestId).value).toBe('Lazer');
+    userEvent.selectOptions(screen.getByTestId(metodoTestId), 'Dinheiro');
+    expect(screen.getByTestId(metodoTestId).value).toBe('Dinheiro');
+    userEvent.selectOptions(screen.getByTestId(testIdTag), 'Lazer');
+    expect(screen.getByTestId(testIdTag).value).toBe('Lazer');
   });
 
   it('1.7 - Teste se ao preencher o formulário e clicar em salvar, a despesa é adicionada e faz uma requisição para a API', async () => {
     const store = createStore(
       rootReducer,
-      initialStateAddTwoExpenses,
+      initialState,
       applyMiddleware(thunk),
     );
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
     expect(store.getState().wallet.currencies).toEqual(Object.keys(mockData).filter((key) => key !== 'USDT'));
-    expect(screen.getByTestId(totalTestId).innerHTML).toBe('15.00');
+    expect(screen.getByTestId(testIdTotal).innerHTML).toBe('15.00');
 
     screen.getByRole('spinbutton', { name: /Valor/i });
     screen.getByRole('combobox', { name: /Moeda/i });
@@ -234,16 +228,16 @@ describe('1 - Wallet teste dos componentes', () => {
     screen.getByRole('combobox', { name: /Tag/i });
     screen.getByRole('button', { name: /Adicionar despesa/i });
 
-    userEvent.type(screen.getByTestId(valueTestId), '1');
-    expect(screen.getByTestId(valueTestId).value).toBe('1');
-    userEvent.type(screen.getByTestId(descriptionTestId), 'açai');
-    expect(screen.getByTestId(descriptionTestId).value).toBe('açai');
+    userEvent.type(screen.getByTestId(testIdValue), '1');
+    expect(screen.getByTestId(testIdValue).value).toBe('1');
+    userEvent.type(screen.getByTestId(testIdDescription), 'açai');
+    expect(screen.getByTestId(testIdDescription).value).toBe('açai');
     userEvent.selectOptions(screen.getByTestId(currencySelectTestId), 'USD');
     expect(screen.getByTestId(currencySelectTestId).value).toBe('USD');
-    userEvent.selectOptions(screen.getByTestId(methodSelectTestId), 'Dinheiro');
-    expect(screen.getByTestId(methodSelectTestId).value).toBe('Dinheiro');
-    userEvent.selectOptions(screen.getByTestId(tagSelectTestId), 'Lazer');
-    expect(screen.getByTestId(tagSelectTestId).value).toBe('Lazer');
+    userEvent.selectOptions(screen.getByTestId(metodoTestId), 'Dinheiro');
+    expect(screen.getByTestId(metodoTestId).value).toBe('Dinheiro');
+    userEvent.selectOptions(screen.getByTestId(testIdTag), 'Lazer');
+    expect(screen.getByTestId(testIdTag).value).toBe('Lazer');
 
     await act(async () => {
       userEvent.click(screen.getByRole('button', { name: /Adicionar despesa/i }));
@@ -253,7 +247,6 @@ describe('1 - Wallet teste dos componentes', () => {
     expect(expenses).toHaveLength(3);
   });
 
-  // se ao clicar em adicionar despesa, e valores são limpos
   it('1.8 - Teste se ao clicar em adicionar despesa, os valores são limpos', async () => {
     const store = createStore(
       rootReducer,
@@ -263,7 +256,6 @@ describe('1 - Wallet teste dos componentes', () => {
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    // Verifiar se os valores do state expensea
     expect(store.getState().wallet.expenses).toHaveLength(2);
   });
 });
