@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApi, responseApi, addExpense } from '../redux/actions/index';
 
+// aqui eu preciso importar o fetchApi e o responseApi
+// e o addExpense para poder usar no meu componente
+// e o connect para poder usar o dispatch
+// e o PropTypes para poder usar o propTypes no meu componente.
+
 class Form extends Component {
   state = {
     id: 0,
@@ -14,10 +19,14 @@ class Form extends Component {
 
   };
 
+  // aqui eu preciso fazer um componentDidMount para poder chamar o fetchApi
+  // e o dispatch para poder chamar o fetchApi
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchApi());
   }
+  // aqui  handlechange vai ser responsavel por pegar o valor do input
+  // e colocar no state do meu componente e o handleClick vai ser responsavel por chamar o dispatch e o addExpense;
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -60,7 +69,10 @@ class Form extends Component {
   render() {
     const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
-
+    // aqui eu preciso fazer um render para poder renderizar o meu form e o botão de adicionar despesa e o botão de editar despesa
+    // as props que eu preciso passar para o meu form são o currencies que vem do meu mapStateToProps
+    // e o dispatch que vem do meu connect
+    // e o value, description, currency, method, tag que vem do meu state;
     return (
       <div className="form-container">
         <form>

@@ -15,6 +15,18 @@ const methodTestId = 'method-input';
 const tagTestId = 'tag-input';
 
 const emailValido = 'mail@mail.com';
+// aqui meu initialState é o meu estado inicial
+// que eu preciso para fazer os meus testes
+// ele é um objeto que tem o user e o wallet
+// o user tem o email
+// o wallet tem o currencies, expenses, editor e editExpense
+// o expenses é um array de objetos
+// cada objeto tem o id, value, description, currency, method, tag e exchangeRates
+// o exchangeRates é um objeto que tem o USD
+// o USD tem o ask e o name
+// o editor é um boolean
+// o editExpense é um objeto
+// o editExpense tem o id, value, description, currency, method, tag e exchangeRates
 
 const InitialState = {
   user: {
@@ -58,6 +70,9 @@ const InitialState = {
     },
   },
 };
+// aqui na linnha 73 eu estou fazendo um mock do fetch
+  // eu estou dizendo que quando o fetch for chamado
+  // ele vai retornar o mockData que eu importei lá em cima
 
 describe('2 - Tabela de Despesas', () => {
   beforeEach(() => {
@@ -79,53 +94,53 @@ describe('2 - Tabela de Despesas', () => {
     await act(() => {
       renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], store });
     });
-    const botaoEdit = screen.queryAllByRole('cell', { name: /editar/i })[1].childNodes.item(0);
+    const botaoEditar = screen.queryAllByRole('cell', { name: /editar/i })[1].childNodes.item(0);
     const deleteButton = screen.queryAllByRole('cell', { name: /Excluir/i })[0].childNodes.item(1);
-    const salvando = screen.getByRole('button', { name: /Adicionar despesa/i });
+    const salvaAi = screen.getByRole('button', { name: /Adicionar despesa/i });
 
-    expect(botaoEdit).toBeInTheDocument();
+    expect(botaoEditar).toBeInTheDocument();
     expect(deleteButton).toBeInTheDocument();
-    expect(salvando).toBeInTheDocument();
+    expect(salvaAi).toBeInTheDocument();
 
     act(() => {
-      userEvent.click(botaoEdit);
+      userEvent.click(botaoEditar);
     });
 
-    expect(salvando).toHaveTextContent(/Editar despesa/i);
+    expect(salvaAi).toHaveTextContent(/Editar despesa/i);
 
     const { wallet } = store.getState();
     expect(wallet.editor).toBeTruthy();
     expect(wallet.editExpense.id).toBe(1);
 
-    const inputValue = screen.getByTestId(valorTestId);
+    const inputValor = screen.getByTestId(valorTestId);
     const inputDescription = screen.getByTestId(testIdDescription);
     const currencyInput = screen.getByTestId(currencyTestId);
     const metodo = screen.getByTestId(methodTestId);
     const inputTag = screen.getByTestId(tagTestId);
 
-    expect(inputValue.value).toBe('2');
+    expect(inputValor.value).toBe('2');
     expect(inputDescription.value).toBe('Ifood');
     expect(currencyInput.value).toBe('USD');
     expect(metodo.value).toBe('Dinheiro');
     expect(inputTag.value).toBe('Transporte');
 
-    userEvent.clear(inputValue);
-    userEvent.type(inputValue, '4');
+    userEvent.clear(inputValor);
+    userEvent.type(inputValor, '4');
     userEvent.clear(inputDescription);
-    userEvent.type(inputDescription, 'Ifood 2');
+    userEvent.type(inputDescription, 'AiqFome');
     userEvent.selectOptions(currencyInput, 'USD');
     userEvent.selectOptions(metodo, 'Cartão de crédito');
     userEvent.selectOptions(inputTag, 'Alimentação');
 
     act(() => {
-      userEvent.click(salvando);
+      userEvent.click(salvaAi);
     });
 
     const { expenses } = store.getState().wallet;
 
     expect(expenses).toHaveLength(2);
     expect(expenses[1].value).toBe('4');
-    expect(expenses[1].description).toBe('Ifood 2');
+    expect(expenses[1].description).toBe('AiqFome');
     expect(expenses[1].currency).toBe('USD');
     expect(expenses[1].method).toBe('Cartão de crédito');
     expect(expenses[1].tag).toBe('Alimentação');
